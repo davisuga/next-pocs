@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState } from "react";
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   decrement,
   increment,
@@ -8,18 +8,22 @@ import {
   incrementAsync,
   incrementIfOdd,
   selectCount,
-} from './counterSlice'
-import styles from './Counter.module.css'
+} from "./counterSlice";
+import styles from "./Counter.module.css";
+import { fetchCount } from "./counterAPI";
+
+const asyncCount = await fetchCount(1);
 
 function Counter() {
-  const dispatch = useAppDispatch()
-  const count = useAppSelector(selectCount)
-  const [incrementAmount, setIncrementAmount] = useState('2')
+  const dispatch = useAppDispatch();
+  const count = useAppSelector(selectCount);
+  const [incrementAmount, setIncrementAmount] = useState("2");
 
-  const incrementValue = Number(incrementAmount) || 0
+  const incrementValue = Number(incrementAmount) || 0;
 
   return (
     <div>
+      <div>Caught with top level await: {asyncCount.data}</div>
       <div className={styles.row}>
         <button
           className={styles.button}
@@ -64,7 +68,7 @@ function Counter() {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default Counter
+export default Counter;
